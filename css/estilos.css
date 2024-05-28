@@ -1,0 +1,592 @@
+:root{
+    --verde:#00A149;
+    --blanco:#fff;
+    --rojo:#881014;
+    --oscuro:#000;
+    --titulos:'Arima Madurai',cursive;
+    --parrafos:'Mulish', sans-serif;
+}
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;/* 1 rem=10px por que asi lo acabamos de definir*/
+}
+body{
+    font-size: 1.6rem;
+    overflow-x: hidden;/*cuando se ejecuta la animacion que despliega la barra de navegacion aparece una barra de desplazamiento en la parte inferior de la pantalla de manera horizontal, esta linea sirve para eliminar ESA MOLESTA BARRA DE DESPLAZAMIENTO*/
+}
+
+*,*::after,*::before{/*respeta el valor calculado de las dimensiones de alto y ancho cuando colocas un padding del contenedor padre, en este caso es la caja*/
+    box-sizing: inherit;
+}
+
+/* .caja{
+    width: 300px;
+    height: 300px;
+    background-color:var(--verde);
+    /*padding: 20px 10px 0 5px;*//* 20 pixeles arriba de espacio,10 a la derecha, 0 abajo y 5 a la izquierda*/
+    /* padding: 20px 0px;/*20 pixeles arriba y abajo de espacio y 0 a la derecha e izquierda} */
+/* .caja p{
+    color:var(--blanco);
+    font-size:20px;
+} */ 
+/* p{
+font-size: 3rem;/*multiplica la base de pixeles que tenga por defecto, si por defecto tiene 16 y colocamos 3 rem seria:3x16}*/
+
+/*globales*/
+.contenedor{
+    max-width: 120rem;/*maximo puede medir 1200 px o menos*/
+    margin: 0 auto;/*centra, arriba y abajo cero pixeles y de izquierda a derecha el espacio que haya disponible*/
+    width: 95%;/*se utiliza para que quede un pequeño borde a los lados de los celulares, para eso es el 5%*/
+}
+h1,h2{
+    font-family: var(--titulos);
+}
+h3,p,a{
+    font-family: var(--parrafos);
+}
+img{
+    max-width: 100%;/*para que las imagenes se coloquen dentro del contenedor padre, al cien por ciento*/
+}
+.verde{
+    color: var(--verde);
+}
+.rojo{
+    color: var(--rojo);
+}
+.ocultar{
+    display: none;/* oculta, no muestra las cosas, lo utilizaremos para la barra de navegacion*/
+}
+.btn-cerrar{
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--blanco);
+    position: absolute;
+    top: 0;
+    right: 50px;
+    user-select: none;
+
+}
+.pantalla-completa{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 4;
+}
+@keyframes desplazamiento {/*esto es una animacion, la verdad no se como funciona , investigalo y practicalo, hay que colocar la animacion en la clase animacion*/
+    0%{
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+
+    
+}
+.btn-cerrar:hover{
+    cursor: pointer;/*para poner una manito cuando se pase por la x*/
+
+}
+.btn{
+    text-decoration: none;/*quita el subrayado*/
+    color: var(--blanco);
+    font-size: 2rem;
+    text-transform: capitalize;/*esto es para que cada palabra empieze por mayuscula*/
+    padding: 1rem 5rem ;
+    border-radius: 5px;
+    transition: all .3s ease-in-out;
+}
+/*la clase .btn quedará para mobile, lo que está en el media query queda para las pantallas de tablet para arriba, osea tambien  las de pc*/
+@media(min-width:768px){
+    .btn{
+        font-size: 2.2rem;
+    }
+    
+
+}
+.bordes{
+    border: 3px solid var(--blanco);
+
+}
+@media(min-width:768px){/*mediaquery es para que todo la imagen se adapte a todos los dispositivos, en este caso las tablets y pc*/
+    .bordes{
+        border: 4px solid var(--blanco);
+
+    }
+    
+
+}
+.bordes:hover{
+    color: var(--verde);
+    background-color: var(--blanco);
+}
+.btn-rojo{
+    background-color: var(--rojo);
+    font-weight: bold;/*colocar la letra de color negrita*/
+    display: inline-block;/*le colocamos inline-block para poder colocarle margin, inline-block significa que aparece unas cajas una al lado de la otra  */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.btn-verde{
+    background-color: var(--verde);
+    border: none;
+    display: inline-block ;
+    margin-bottom: 2rem;
+    font-family: var(--parrafos);
+
+}
+.btn-verde:hover{
+    background-color: var(--rojo);
+
+}
+/*Encabezado*/
+.contenedor-navegacion{
+   background-color: var(--oscuro); 
+   position: relative;
+   z-index: 5;/*z-index sirve para sobreponer elementos, uno encima del otro, hay que colocar un mayor valor para el elemento que quieres que se sobreponga*/
+}
+.contenido-navegacion{
+    display: flex;
+    align-items: center;/*Para centrar los elementos*/
+    justify-content: space-between;/*Para colocar en las esquinas los elementos*/
+}
+
+.logo h2, .navegacion a{
+    color: var(--blanco);
+}
+.logo h2{
+    font-size: 3rem;
+}
+.navegacion a{
+    text-decoration: none;/* le quita el subrayado que tiene por defecto la navegacion de la etiqueta a*/
+    font-size: 2.2rem;
+    padding: 1.5rem;
+    padding-left: 4rem;
+    display: block;
+    transition: color .3s ease-in-out;/*el color de los elementos de navegacion tendra un lapsus de tiempo para que se coloque, el ease-in-out le da un suavizado*/
+    text-align: center;
+
+}
+
+@media(min-width:768px){
+    .navegacion a{
+        text-align: left;
+    }
+
+}
+.navegacion a:nth-child(even):hover{/*nth-child con even es para colocar los elementos hermanos pares de color rojo */
+    color: var(--rojo);
+}
+.navegacion a:nth-child(odd):hover{/*nth-child con odd es para colocar los elementos hermanos impares de color verde*/
+    color: var(--verde);/*:hover es para que se active el color cuando pases el cursor sobre el elemento con el cursor del mouse*/
+}
+
+.navegacion a:first-of-type{
+    margin-top: 5rem;
+}
+.navegacion{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom:0;
+    height: 100vh;/*IMPORTANTE PARA SOLUCIONAR PROBLEMAS RELACIONADOS CON EL DESPLIEGUE DE LA NAVEGACION*/
+    width: 40rem;
+    padding: 3rem 4rem;/*arriba y abajo, 4 rem  izquierda a derecha */
+    background-color: var(--oscuro);
+    animation: desplazamiento .5s ease-in-out /*esta es la animacion de la barra de navegacion, se llama desplazamiento*/
+}
+.hamburguesa:hover{
+    cursor: pointer;
+}
+.hamburguesa span{
+    background-color: var(--blanco);
+    display:block;
+    width: 5rem;
+    height:.5rem;/*la mitad de los pixeles base que eran 10, osea que acabamos de colocar 5 pixeles*/
+    margin-bottom:.4rem;
+
+}
+
+/*video*/
+.contenido-header{
+    position: relative;
+}
+.contenido-header::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);
+    
+
+}
+.texto-encabezado{
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 80%;
+    display: flex;/*alinea de izquierda a derecha*/
+    flex-direction: column;/*alinea texto uno abajo del otro, aqui modificaste la direccion de flexbox*/
+    align-items: center;/*en este caso alinea el texto de manera horizontal de izquierda a derecha*/
+    justify-content: center;/*en este caso se alinea el texto de manera horizontal*/
+
+
+
+}
+.texto-encabezado h2{/*esto es la parte responsive de mobile*/
+    color:var(--blanco) ;
+    font-size: 4rem;
+}
+@media(min-width: 768px){
+    .texto-encabezado h2{
+        font-size: 8rem;
+    }
+    
+
+}
+
+video{
+    width: 100%;
+    height: 100%;
+} 
+
+/* sobre nosotros*/
+.contenedor-nosotros{
+   
+    padding-top: 5rem;
+}
+@media(min-width:768px){/*esos 768 pixeles significa de tableta hacia arriba*/
+    .contenedor-nosotros{
+        display: flex;/*se organiza una al lado  de la otra */
+        justify-content: space-between;/*esto te deja un espacio que se ha definido en el flex de abajo de las imagenes*/
+
+    }
+    
+
+}
+.texto-nosotros,.imagenes-nosotros{
+    /* flex-grow: ; este flex es para que la imagen no se haga mas grande
+    flex-shrink: ; este flex es para que no se haga mas pequeños
+    flex-basis: ; */
+    /*Todos estos flex los toma el flex,*/
+    flex: 0 0 calc(50% - 1rem) ;/*no quiero que se haga mas grande, y no quiero que se haga mas pequeño, ademas le agrego una base del 50% menos 1rem*/
+   
+
+}
+.texto-nosotros .bienvenida{
+    font-size: 4rem;
+    color: var(--verde);
+    text-align: center;
+}
+@media(min-width:768px){
+    .texto-nosotros .bienvenida{
+        text-align: left;
+    } 
+    
+
+}
+.texto-nosotros h1{/*mobile*/
+    font-size: 5rem;
+    text-align: center;
+}
+@media(min-width:768px){/*pc o tableta*/
+    .texto-nosotros h1{
+        text-align: left;
+    }
+    
+
+}
+.texto-nosotros p{/*mobile*/
+    font-size: 2rem;
+    text-align: center;
+}
+@media(min-width:768px){
+    .texto-nosotros p{
+        text-align: left;
+    }
+    
+
+}
+.imagenes-nosotros{
+    display: flex;
+    justify-content: space-between;
+}
+.imagenes-nosotros img{
+    border-radius: 5px;
+}
+.imagen1, .imagenes2{
+    flex: 0 0 calc(50% - 1rem);
+}
+.imagenes2 img{
+    margin-bottom: 1rem;
+}
+.menu{
+    padding-top: 4rem;
+}
+/*platillos*/
+.texto-platillos{
+    text-align: center;
+    font-size: 5rem;
+}
+.botones-platillos{
+    display: flex;
+    flex-wrap: wrap;/*hace que los elementos hijos esten en varias lineas*/
+    justify-content: space-between;
+
+}
+.botones-platillos button{
+    flex: 0 0 calc(50% - 1rem);
+    padding: 1rem 3rem;
+}
+@media(min-width:768px){
+    .botones-platillos{
+        display: inline-block;/*botones alineados de manera horizontal y puedes colocarle margin*/
+    }
+    .botones-platillos button{
+        flex: unset;/*botones mas pequeños*/
+    }
+    
+
+}
+
+@media(min-width:768px){
+    .platillos{
+        display: flex;
+        justify-content: space-between;/*ESTO ES PARA QUE SE PUEDA APLICAR EL ESPACIO DE UN 1REM QUE COLOCAMOS EN LA CLASE PLATILLO*/
+        flex-wrap: wrap;/*TODA ESTA CLASE ES PARA HACER EL CATALOGO CON LAS FOTOS DE LOS PRODUCTOS*/
+    }
+
+}
+.platillo{
+    flex: 0 0 calc(33.3% - 1rem);/*Esto es para hacer catalogo CON LAS FOTOS de LOS productos(LE AGREGAMOS UNA SEPARACION DE 1REM, ES POR ESTO QUE DEBEMOS COLOCAR EN LA CLASE PADRE SPACE BETWEEN)*/
+    border: 1px solid #e1e1e1;
+    padding: 2rem;
+    border-radius:5px ;
+}
+.platillo h2{
+    text-align: center;
+}
+.platillo p{
+    font-size: 1.8rem;
+}
+.precio{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;/*los elementos se distribuyen a los extremos de cada lado*/
+}
+.precio p{
+    font-weight: bold;
+    font-size: 2rem;
+}
+.precio button{
+    padding: 1rem;/*EL PADDING ES EL ESPACIO QUE VA A OCUPAR UN OBJETO O CAJA*/
+    border-radius: 5px;
+    border: none;
+    background-color: var(--rojo);
+    color: var(--blanco);
+    height: 3.8rem;
+}
+/*SEPARADOR QUE ESTÁ JUSTO DESPUES DEL MENU DE PLATILLOS*/
+.separador{
+    background-image: url('../assets/img/ensalada.webp');
+    background-size: cover;/*esto es para que se adapte a su contenedor padre*/
+    background-position: center center;/*esto para colocar la imagen en todo el centro del contenedor, BACKGROUND-POSITION SIRVE PARA COLOCAR LA IMAGEN EN DONDE QUERAMOS, POR DEFECTO APARECERÁ EN LA PARTE IRQUIERDA SUPERIOR DE NUESTRO CONTENEDOR Y SE REPETIRÁ POR DEFECTO EN TODO EL ELEMENTO DE MANERA HORIZONTAL Y VERTICAL*/
+    background-repeat: no-repeat;/*esto es para que no se repita la imagen, sino que salga una sola vez, POR DEFECTO LA IMAGEN SE REPITE EN EL CONTENEDOR SEGUN LA POSICION QUE LE HAYAMOS DEFINIDO CON BACKGROUND-POSITION*/
+    position: relative;
+    z-index: 2;/*RECUERDA QUE EL Z INDEX DEL CONTENEDOR PADRE DEBE SER MAYOR QUE LA DEL OVERLAY O TAMBIEN LLAMADO DIFUMINADO, SOMBREADO*/
+
+}
+.separador::before{/*VAMOS A HACER EL OVERLAY, PARA QUE SE VEA UN POQUITO OSCURA, O SOMBREADA LA IMAGEN*/
+    content: '';
+    position: absolute;/*el contenedor padre debe tener position relative.  RECUERDA QUE CUANDO PONEMOS UN PSEUDO ELEMENTO SE DEBE COLOCAR EL POSITION RELATIVE EN EL CONTENEDOR PADRE*/
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);/*RECUERDA COLOCAR UN Z INDEX PARA QUE SE PUEDA VER ADECUADAMENTE*/
+    z-index: -1;/*RECUERDA QUE ESTE Z INDEX DEBE SER MENOR QUE EL INDEX DEL CONTENEDOR PADRE*/
+} 
+
+.contenido-separador{
+    padding: 5rem;
+}
+.contenido-separador h2{/*RECUERDA QUE ESTO QUEDA SIENDO VISTA MOVIL*/
+    font-size: 4rem;
+    color: var(--blanco);
+    text-align: center;/*recuerda que cuando estamos en vista movil queremos que el texto se vea centrado*/
+}
+@media(min-width:768px){/*RECUERDA QUE ESTO QUEDA SIENDO LA VISTA DE PC Y TABLETA POR ESO SE METE EN UN MEDIAQUERY*/
+    .contenido-separador h2{
+    text-align: left;/*recuerda que cuando sea una tableta o una pantalla mas grande queremos que se vea el texto en la parte izquierda*/
+    font-size: 5rem;
+    color: var(--blanco);
+
+}
+    
+
+}
+.contenido-separador p{
+    color: var(--blanco);
+    font-size: 3rem;
+    text-align: center;
+}
+@media(min-width:768px){
+    .contenido-separador p{
+        color: var(--blanco);
+        font-size: 3rem;
+        text-align: left;
+    }
+    
+}
+
+/*seccion del chef*/
+.chef h2{
+    background-color:var(--rojo) ;
+    display: inline-block;/*inline-block se lo colocamos para poderle colocar padding ahora mismo*/
+    padding: 1rem 3rem;
+    color: var(--blanco);
+    font-size: 4rem;
+}
+@media(min-width:768px){
+    .contenido-chef{/*RECUERDA QUE ESTO LO ESTAMOS HACIENDO PARA ALINEAR EL TEXTO CON LA FOTO DEL CHEF*/
+        display: flex;/*RECUERDA QUE ESTO ES PARA QUE SE COLOQUE EL TEXTO Y LA FOTO UNA AL LADO DE LA OTRA*/
+        justify-content: space-between;
+    }
+
+}
+
+.texto-chef, .imagen-chef{/*ACA LE ESTAMOS DEFINIENDO UNA BASE*/
+    flex: 0 0 calc(50% - 1rem);/*BASE: NO QUIERO QUE SE HAGA MAS GRANDE(EL PRIMERR CERO) NO QUIERO QUE SE HAGA MAS CHICO(EL SEGUNDO CERO) Y EL CALC(50% - 1REM) ES NUESTRA SEPARACION*/
+    /*PARA QUE EL TEXTO Y LA IMAGEN PUEDAN SEPARARSE GRACIAS AL CALC, DEBEMOS COLOCAR JUSTIFY-CONTENT: SPACE-BETWEEN EN EL CONTENEDOR PADRE PARA QUE SE EJECUTE*/
+}
+.texto-chef h3{
+    font-size: 3rem;
+}
+
+.texto-chef p{
+    font-size: 2rem;
+
+}
+
+.formulario-contacto{
+    padding-top: 5rem;
+}
+/*formulario contacto*/
+@media(min-width:768px){/*LO METIMO EN UN MEDIAQUERY PARA QUE EL FLEX NO AFECTE A LA VERSION  MOBILE Y ASI NO QUEDE UNO AL LADO DE OTRO SINO QUE QUEDE UNO ABAJO DEL OTRO */
+    .formulario-contacto{
+        display: flex;
+    }
+}
+.informacion-contacto{
+    display: flex;
+    flex-direction: column;/*cambiamos la direccion de flex, justify content y aling items tambien intercambian sus direcciones*/
+    justify-content: center;/*esta invertido por eso lo centró de manera vertical*/
+    align-items: center;/*sin el flex direction esto centra de manera vertical, pero como tenemos flex direction lo centró de manera horizontal*/
+}
+.informacion-contacto, .formulario{
+    flex: 0 0 calc(50% - 1rem);
+}
+.informacion-contacto{
+    background-color:var(--oscuro) ;
+    padding: 2rem;
+}
+
+.informacion-contacto h3, .informacion-contacto p, .redes-sociales i{
+    color: var(--blanco);
+}
+.informacion-contacto h3{
+    font-size: 4rem;
+    font-family: var(--titulos);
+}
+.informacion-contacto p{
+    font-size: 2.2rem;
+
+}
+.informacion-contacto i{
+    margin-right: 1rem;
+}
+.redes-sociales{
+    font-size: 3rem;
+}
+
+.formulario{
+    padding: 5rem;
+}
+.input-formulario label{/*utilizamos el contenedor padre para que los hijos queden uno abajo del otro con display block, ya que antes estaban uno al lado del otro*/
+    display: block;
+    font-size:2rem ;
+    font-family: var(--parrafos);
+    margin-bottom: 1.5rem;
+
+}
+.input-formulario input, .input-formulario textarea {
+    width: 100%;
+
+}
+.input-formulario input, .input-formulario textarea{
+    padding: 1rem 1.6rem;/*un rem arriba y abajo a cada input y 1.6 rem de izquierda a derecha*/
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    outline: none;/*quita el borde negro que aparece por defecto cuando le das click en un input*/
+    font-family: var(--parrafos);
+}
+.input-formulario textarea{
+    height: 20rem;
+    resize: none;
+}
+/*pie de pagina*/
+.pie-pagina{
+    margin-top: 5rem;
+    background-color: rgb(20,20,20);
+    padding: 5rem;
+}
+@media(min-width:768px){
+    .contenedor-piepagina{
+        display: flex;
+        justify-content: space-between;
+    }
+    
+}
+.info{
+    flex: 0 0 calc(25% - 1rem);/*en este caso colocamos en el calc() 25% porque son 4 objetos que van en 4 columnas diferentes, el total da el cien por ciento*/
+    margin-bottom: 2rem;
+}
+.info h3, .info p{
+    color: var(--blanco);
+    text-align: center;
+}
+.info h3{
+    font-size: 2.2rem;
+}
+ 
+.info p{
+    font-size: 1.8rem;
+}
+.redes-pie{
+    text-align: center;
+}
+.info input[type="email"]{
+    font-family: var(--parrafos);
+    display: inline-block;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+}
+.info input[type="submit"]{
+   padding: .5rem 2rem; 
+   font-size: 1.8rem;
+   border-radius: 0;
+}
+.footer{
+    text-align: center;/*centra de manera horizontal*/
+    background-color: var(--oscuro);
+    color: var(--blanco);
+    padding: 2rem;
+    font-size: 2rem;
+}
